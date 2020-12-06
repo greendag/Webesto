@@ -1,0 +1,65 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "configurations": [   
+    {
+        "name": "Launch (remote console)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "Publish To Raspberry Pi",
+        "program": "/usr/bin/dotnet/dotnet",
+        "args": ["/home/pi/Debug/${workspaceFolderBasename}/${config:startupProjectName}.dll"],
+        "cwd": "/home/pi/Debug/${workspaceFolderBasename}",
+        "stopAtEntry": false,
+        "console": "internalConsole",
+        "pipeTransport": {
+            "pipeCwd": "${workspaceFolder}",
+            "pipeProgram": "ssh",
+            "pipeArgs": [
+                "root@${config:raspberry_pi}"
+            ],
+            "debuggerPath": "/usr/bin/vsdbg/vsdbg"
+        }
+    },
+    {
+        "name": "HelloWorld (remote)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "publish HelloWorld",
+        "program": "/usr/bin/dotnet/dotnet",
+        "args": ["${config:exe.HelloWorldProject}.dll"],
+        "cwd": "~/RemoteDebug/${config:exe.HelloWorldProject}",
+        "stopAtEntry": false,
+        "console": "internalConsole",
+        "pipeTransport": {
+            "pipeCwd": "${workspaceFolder}",
+            "pipeProgram": "ssh.exe",
+            "pipeArgs": [
+                "pi@${config:rpi.Name}"
+            ],
+            "debuggerPath": "/usr/bin/vsdbg/vsdbg"
+        }
+    },
+    {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Main/bin/Debug/net5.0/Main.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Main",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+   ]
+}

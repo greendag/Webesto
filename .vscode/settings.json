@@ -1,0 +1,5 @@
+{
+    "raspberry_pi": "webesto",
+    "runtime": "linux-arm",
+    "startupProjectName": "Main"
+}
